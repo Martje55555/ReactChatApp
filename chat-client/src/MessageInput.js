@@ -19,7 +19,7 @@ const NewMessage = ({ socket }) => {
   }
 
   return (
-    <div>
+    <div className="inputContainer">
       <form onSubmit={submitForm}>
         <input
           autoFocus
@@ -32,7 +32,7 @@ const NewMessage = ({ socket }) => {
       </form>
       <br></br>
       <span>
-        <Picker onSelect={addEmoji} />
+          <Picker onSelect={addEmoji} />
       </span>
     </div>
 
