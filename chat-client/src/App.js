@@ -7,12 +7,17 @@ import './App.css';
 
 const App = () => {
   const [socket, setSocket] = useState(null);
+  const [userName, setUserName] = useState('meow');
 
   useEffect(() => {
     const newSocket = io(`http://${window.location.hostname}:3000`);
     setSocket(newSocket);
+
+    var username = prompt("What is your name?");
+    setUserName(username);
+
     return () => newSocket.close();
-  }, [setSocket]);
+  }, [setSocket, setUserName]);
 
   return (
     <div className="App">
@@ -21,7 +26,7 @@ const App = () => {
       </header>
       { socket ? (
         <div className="chat-container">
-          <Messages socket={socket} />
+          <Messages socket={socket} userName={userName}/>
           <MessageInput socket={socket} />
         </div>
       ) : (

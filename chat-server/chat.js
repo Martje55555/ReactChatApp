@@ -15,21 +15,27 @@ class Connection {
     this.socket = socket;
     this.io = io;
 
+    socket.on('newUser', () => this.newUser());
     socket.on('getMessages', () => this.getMessages());
     socket.on('message', (value) => this.handleMessage(value));
     socket.on('disconnect', () => this.disconnect());
     socket.on('connect_error', (err) => {
       console.log(`connect_error due to ${err.message}`);
     });
-  }
+  };
+
+  newUser(userName) {
+    users.set(this.socket, userName);
+    //this.io.sockets.emit('userName', userName);
+  };
   
   sendMessage(message) {
       this.io.sockets.emit('message', message);
-  }
+  };
   
   getMessages() {
     messages.forEach((message) => this.sendMessage(message));
-  }
+  };
 
   handleMessage(value) {
     const message = {
@@ -49,12 +55,12 @@ class Connection {
       },
       messageExpirationTimeMS,
     );
-  }
+  };
 
   disconnect() {
     users.delete(this.socket);
-  }
-}
+  };
+};
 
 function chat(io) {
   io.on('connection', (socket) => {
