@@ -15,7 +15,7 @@ class Connection {
     this.socket = socket;
     this.io = io;
 
-    socket.on('newUser', () => this.newUser());
+    socket.on('newUser', (userName) => this.newUser(userName));
     socket.on('getMessages', () => this.getMessages());
     socket.on('message', (value) => this.handleMessage(value));
     socket.on('disconnect', () => this.disconnect());
@@ -26,7 +26,7 @@ class Connection {
 
   newUser(userName) {
     users.set(this.socket, userName);
-    //this.io.sockets.emit('userName', userName);
+    this.io.sockets.emit('newUser', userName);
   };
   
   sendMessage(message) {
@@ -44,6 +44,8 @@ class Connection {
       value,
       time: Date.now()
     };
+
+    console.log(message.user);
 
     messages.add(message);
     this.sendMessage(message);

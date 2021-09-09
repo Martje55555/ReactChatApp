@@ -3,14 +3,8 @@ import './Messages.css';
 
 const Messages = ({ socket, userName }) => {
   const [messages, setMessages] = useState({});
-  const [user, setUser] = useState(null);
+
   useEffect(() => {
-
-    const newUserListener = () => {
-      setUser(userName);
-      return user;
-    }
-
     const messageListener = (message) => {
       setMessages((prevMessages) => {
         const newMessages = {...prevMessages};
@@ -27,8 +21,7 @@ const Messages = ({ socket, userName }) => {
       });
     };
   
-    socket.on('newUser', newUserListener);
-    //socket.emit('newUser');
+    socket.emit('newUser', userName);
     socket.on('message', messageListener);
     socket.on('deleteMessage', deleteMessageListener);
     socket.emit('getMessages');
@@ -57,6 +50,6 @@ const Messages = ({ socket, userName }) => {
       }
     </div>
   );
-}
+};
 
 export default Messages;

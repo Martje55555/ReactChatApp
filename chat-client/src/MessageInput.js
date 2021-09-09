@@ -16,7 +16,7 @@ const NewMessage = ({ socket }) => {
   const addEmoji = (e) => {
     let emoji = e.native;
     setValue(value + emoji);
-  }
+  };
 
   return (
     <div className="inputContainer">
