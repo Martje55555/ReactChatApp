@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "publishHeroku": "cd ../ && git subtree push --prefix /chat-server chat-serverrr master || true"
+    "publishHeroku": "cd ../ && git subtree push --prefix B:/WEB DEVELOPMENT/ChatApp/chat-server chat-serverrr master || true"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
